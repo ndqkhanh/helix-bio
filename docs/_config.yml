@@ -1,0 +1,4 @@
+theme: jekyll-theme-cayman
+title: Helix-Bio
+description: "Biomedical research agent with ontology-bound claims, faithfulness gates, and dual-use safety perimeter."
+show_downloads: false

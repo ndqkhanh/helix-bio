@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Helix-Bio — Biomedical Research Agent</title>
+<style>
+  :root {
+    --bg: #0b1020; --fg: #e6ecff; --muted: #8aa0c8;
+    --accent: #7cf7c8; --accent-2: #f0a4ff; --border: #1e2a49;
+    --card: #131a32; --badge: #22304f;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "Inter", "Helvetica Neue", sans-serif;
+    line-height: 1.55; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  header { padding: 48px 32px 32px; border-bottom: 1px solid var(--border);
+    background: linear-gradient(160deg, #0b1020 0%, #13233f 80%); }
+  header h1 { font-size: 2.2rem; margin: 0 0 8px; letter-spacing: -0.01em; }
+  header h2 { font-size: 1.05rem; font-weight: 400; color: var(--muted); margin: 0 0 16px; }
+  .badges span { background: var(--badge); color: var(--accent-2);
+    padding: 4px 10px; border-radius: 12px; font-size: 0.78rem; margin-right: 8px;
+    display: inline-block; margin-bottom: 6px; }
+  nav.tabs { display: flex; gap: 4px; flex-wrap: wrap; padding: 0 32px;
+    border-bottom: 1px solid var(--border); background: #0d1428; position: sticky; top: 0;
+    z-index: 5; }
+  nav.tabs button { background: transparent; border: 0; color: var(--muted);
+    padding: 14px 18px; cursor: pointer; font-size: 0.92rem;
+    border-bottom: 2px solid transparent; }
+  nav.tabs button.active { color: var(--fg); border-bottom-color: var(--accent); }
+  main { max-width: 1100px; margin: 0 auto; padding: 36px 32px 80px; }
+  section.pane { display: none; }
+  section.pane.active { display: block; }
+  h3 { margin-top: 36px; font-size: 1.3rem; }
+  h4 { margin-top: 28px; font-size: 1.05rem; color: var(--accent-2); }
+  table { border-collapse: collapse; width: 100%; margin: 12px 0 24px; font-size: 0.92rem; }
+  th, td { border-bottom: 1px solid var(--border); padding: 10px 12px; text-align: left; vertical-align: top; }
+  th { color: var(--muted); font-weight: 500; }
+  code { background: var(--card); padding: 2px 6px; border-radius: 4px; font-size: 0.88rem; }
+  pre { background: var(--card); border: 1px solid var(--border); padding: 12px 16px;
+    border-radius: 6px; overflow-x: auto; font-size: 0.85rem; line-height: 1.45; }
+  ul { padding-left: 20px; }
+  li { margin: 6px 0; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 14px; margin: 14px 0; }
+  .card { background: var(--card); border: 1px solid var(--border); padding: 14px 16px;
+    border-radius: 8px; }
+  .card h5 { margin: 0 0 6px; font-size: 0.98rem; color: var(--accent); }
+  .card p { margin: 0; color: var(--muted); font-size: 0.88rem; }
+  .hero-target { background: var(--card); border-left: 3px solid var(--accent);
+    padding: 14px 18px; border-radius: 4px; margin: 14px 0; font-size: 0.95rem; }
+  footer { color: var(--muted); font-size: 0.85rem; border-top: 1px solid var(--border);
+    padding: 24px 32px; margin-top: 40px; }
+</style>
+</head>
+<body>
+<header>
+  <div class="badges">
+    <span>Biomedical</span><span>Design-only · April 2026</span><span>RadAgent × Atlas-Research</span>
+  </div>
+  <h1>Helix-Bio</h1>
+  <h2>Domain-specialized biomedical research agent — UniProt · PDB · AlphaFold · BLAST · ChEMBL · PubMed native.</h2>
+  <div class="hero-target">
+    <b>Design target:</b> faithfulness-gated outputs matching GPT-Rosalind's BixBench tier (<b>0.751</b> pass rate reported) without requiring a new model weight — by combining a strong generalist with typed MCP tools for authoritative databases, RadAgent-style inspectable traces, and an ontology-binding structural constraint on outputs.
+  </div>
+</header>
+
+<nav class="tabs">
+  <button class="tab-btn active" data-tab="overview">Overview</button>
+  <button class="tab-btn" data-tab="baselines">Honest Baselines</button>
+  <button class="tab-btn" data-tab="novel">Novel Contributions</button>
+  <button class="tab-btn" data-tab="arch">Architecture</button>
+  <button class="tab-btn" data-tab="blocks">Blocks</button>
+  <button class="tab-btn" data-tab="why">Why this stack</button>
+  <button class="tab-btn" data-tab="refs">References</button>
+</nav>
+
+<main>
+
+<section id="overview" class="pane active">
+  <h3>What Helix-Bio is</h3>
+  <p>A tool-using biomedical research agent. The pipeline mirrors Atlas-Research (intake → plan → retrieve → synthesize → verify) but specializes the retrieval layer to authoritative life-sciences sources reached through typed <a href="../../docs/07-model-context-protocol.md">MCP</a> tools, and upgrades the faithfulness gate with <b>ontology-identifier binding</b> as a structural output constraint.</p>
+
+  <div class="grid">
+    <div class="card"><h5>Niche</h5><p>Target discovery, variant reasoning, protein analysis, pathway landscape, compound druggability — decision support for bench scientists.</p></div>
+    <div class="card"><h5>Not</h5><p>A clinical decision system; a replacement for wet lab; a GxP-validated pipeline.</p></div>
+    <div class="card"><h5>Status</h5><p>Design specification. Scaffold-quality. Not implemented.</p></div>
+  </div>
+
+  <h4>Files in this folder</h4>
+  <ul>
+    <li><a href="architecture.md">architecture.md</a> — full component diagram + ten commitments</li>
+    <li><a href="architecture-tradeoff.md">architecture-tradeoff.md</a> — alternatives considered; why rejected</li>
+    <li><a href="system-design.md">system-design.md</a> — interfaces, schemas, deployment, SLOs</li>
+    <li><a href="blocks/">blocks/</a> — ten block specs</li>
+  </ul>
+</section>
+
+<section id="baselines" class="pane">
+  <h3>Honest baselines (numbers cited from the research corpus)</h3>
+  <table>
+    <tr><th>Baseline</th><th>Reported number</th><th>Source</th></tr>
+    <tr><td>GPT-Rosalind</td><td>0.751 pass rate on BixBench; 6/11 wins on LABBench2 vs GPT-5.4</td><td><a href="../../docs/30-gpt-rosalind-domain-specialized.md">docs/30</a></td></tr>
+    <tr><td>RadAgent (chest CT)</td><td>+6.0 F1 clinical accuracy, +24.7 robustness over baseline VLMs</td><td><a href="../../docs/28-radagent-agentic-radiology.md">docs/28</a></td></tr>
+    <tr><td>dnaHNet (genomic FM)</td><td>~3× inference speed vs Transformers; beats StripedHyena2 zero-shot</td><td><a href="../../docs/33-dnahnet-genomic-foundation.md">docs/33</a></td></tr>
+    <tr><td>Generic LLM + PubMed RAG</td><td>Brittle on compositional reasoning; hallucinates gene IDs</td><td>community knowledge</td></tr>
+  </table>
+  <p><b>Design-target hypotheses (not measurements):</b></p>
+  <ul>
+    <li>Faithfulness ≥ 95 % — assumption: structural ontology-binding + citation gate.</li>
+    <li>BixBench tier at parity with GPT-Rosalind using a generalist model — assumption: specialization quality lives in tools + eval rubric, not weights.</li>
+    <li>Zero dual-use uplift on red-team set — assumption: rule-deny + classifier + institutional-review lane.</li>
+  </ul>
+</section>
+
+<section id="novel" class="pane">
+  <h3>Novel contributions (not present in cited systems)</h3>
+
+  <div class="card">
+    <h5>1. Ontology-identifier-bound outputs as a structural constraint</h5>
+    <p>Every gene/protein/drug mention must bind to a canonical identifier (UniProt AC, HGNC, MeSH, ChEMBL) validated by the gate against the trace. This tightens RadAgent's faithfulness pattern by fusing it with Atlas-Research's claim-evidence binding. Cited systems treat identifiers as metadata; Helix-Bio treats them as a hard constraint the output must satisfy before emission.</p>
+  </div>
+
+  <div class="card">
+    <h5>2. Neuro-symbolic residue-level verifier</h5>
+    <p>Structural claims ("R273 in TP53 DBD H-bonds with DNA phosphate") route to a geometry checker against cited PDB coordinates rather than LLM self-critique. Direct application of the <a href="../../docs/37-neuro-symbolic-ai.md">Marcus &amp; Belle neuro-symbolic design pattern</a> to structural biology.</p>
+  </div>
+
+  <div class="card">
+    <h5>3. ReBalance confidence-steering on the retrieval DAG</h5>
+    <p>Easy ID lookups run shallow; hard compositional reasoning steers deeper via the training-free <a href="../../docs/51-rebalance-efficient-reasoning.md">ReBalance</a> mechanism. First documented application of reasoning-depth control to biomedical RAG.</p>
+  </div>
+
+  <div class="card">
+    <h5>4. Dual-use safety as a harness perimeter</h5>
+    <p>Deterministic deny-list (BSAT, Schedule-I routes, gain-of-function uplift queries) + institutional-review routing lane + content classifier, composed at the harness layer — not as a trailing moderation pass. See <a href="blocks/07-dual-use-safety.md">block 07</a>.</p>
+  </div>
+</section>
+
+<section id="arch" class="pane">
+  <h3>Architecture at a glance</h3>
+  <pre>Researcher → [Intake] → [Plan (ReWOO DAG)] → [Knowledge Router]
+                                                   │
+                              ┌─────────┬──────────┼──────────┬─────────┐
+                              ▼         ▼          ▼          ▼         ▼
+                          UniProt   PDB/AF      PubMed     BLAST   ChEMBL/Ensembl
+                                                   │
+                                                   ▼
+                                       [Ontology Grounding]
+                                                   │
+                                                   ▼
+                                    [Inspectable Trace]
+                                                   │
+                                                   ▼
+                                     [Synthesis Writer]
+                                                   │
+                                                   ▼
+                                    [Faithfulness Gate]
+                                                   │
+                                                   ▼
+                                      Report + Trace bundle</pre>
+  <p>Read the full diagram and commitments in <a href="architecture.md">architecture.md</a>.</p>
+</section>
+
+<section id="blocks" class="pane">
+  <h3>Ten blocks</h3>
+  <ol>
+    <li><a href="blocks/01-clinical-intake.md">01 Clinical / research intake</a></li>
+    <li><a href="blocks/02-knowledge-router.md">02 Knowledge router</a></li>
+    <li><a href="blocks/03-ontology-grounding.md">03 Ontology grounding</a></li>
+    <li><a href="blocks/04-tool-layer.md">04 Domain tool layer</a></li>
+    <li><a href="blocks/05-inspectable-trace.md">05 Inspectable trace</a></li>
+    <li><a href="blocks/06-faithfulness-gate.md">06 Faithfulness gate</a></li>
+    <li><a href="blocks/07-dual-use-safety.md">07 Dual-use safety</a></li>
+    <li><a href="blocks/08-memory-per-researcher.md">08 Per-researcher memory</a></li>
+    <li><a href="blocks/09-cost-routing.md">09 Cost routing</a></li>
+    <li><a href="blocks/10-eval-benchmarks.md">10 Eval &amp; benchmarks</a></li>
+  </ol>
+</section>
+
+<section id="why" class="pane">
+  <h3>Why this stack, block by block</h3>
+  <h4>Why RadAgent-style inspectable traces?</h4>
+  <p>Generalist agents emit opinions; clinicians and bench scientists need audit trails. RadAgent showed +24.7 robustness and introduced <i>faithfulness</i> as a capability by exposing the reasoning steps. Helix-Bio pays the cost of that visibility because biomedical outputs are high-stakes.</p>
+
+  <h4>Why identifier-bound outputs?</h4>
+  <p>Generic RAG pipelines cite URLs and abstract chunks. That resolves "where I read it" but not "which specific entity". An output mentioning "KRAS" without binding to <code>UniProt:P01116</code> is unsafe in a target-discovery context where the wrong paralog is a real risk.</p>
+
+  <h4>Why a generalist model rather than training our own?</h4>
+  <p>GPT-Rosalind's advantage is partly from 50 workflow-trained examples. Helix-Bio's bet: equivalent domain quality comes from tool fidelity + evaluation discipline, not from model weights. Same-tier output without the training cost.</p>
+
+  <h4>Why ReBalance here?</h4>
+  <p>Biomedical RAG has a bimodal reasoning profile: most tasks are simple ID lookups (shallow); some are genuinely hard composition (variant × pathway × drug). Static reasoning depth wastes compute on easy and under-thinks on hard. <a href="../../docs/51-rebalance-efficient-reasoning.md">ReBalance</a> is the training-free mechanism for per-call depth control.</p>
+</section>
+
+<section id="refs" class="pane">
+  <h3>Primary references (in research corpus)</h3>
+  <ul>
+    <li><a href="../../docs/28-radagent-agentic-radiology.md">docs/28 — RadAgent (faithfulness pattern)</a></li>
+    <li><a href="../../docs/30-gpt-rosalind-domain-specialized.md">docs/30 — GPT-Rosalind (benchmarks)</a></li>
+    <li><a href="../../docs/33-dnahnet-genomic-foundation.md">docs/33 — dnaHNet (genomic foundation model)</a></li>
+    <li><a href="../../docs/25-agentic-rag.md">docs/25 — Agentic RAG pipelines</a></li>
+    <li><a href="../../docs/07-model-context-protocol.md">docs/07 — MCP (tool layer)</a></li>
+    <li><a href="../../docs/18-chain-of-verification-self-refine.md">docs/18 — Chain-of-Verification</a></li>
+    <li><a href="../../docs/37-neuro-symbolic-ai.md">docs/37 — Neuro-symbolic AI (Marcus &amp; Belle)</a></li>
+    <li><a href="../../docs/51-rebalance-efficient-reasoning.md">docs/51 — ReBalance reasoning</a></li>
+    <li><a href="../../docs/24-observability-tracing.md">docs/24 — Observability</a></li>
+    <li><a href="../../docs/27-horizon-long-horizon-degradation.md">docs/27 — HORIZON failure attribution</a></li>
+  </ul>
+</section>
+
+</main>
+
+<footer>
+  Design specification. Not implemented. Part of the <a href="..">harness-engineering projects</a> index.
+</footer>
+
+<script>
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.pane').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById(btn.dataset.tab).classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  });
+</script>
+</body>
+</html>
