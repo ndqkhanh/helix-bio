@@ -1,0 +1,26 @@
+apiVersion: lyra.dev/v3
+kind: SourceBundle
+name: helix-bio
+version: 0.2.0
+description: Biomedical research agent with ontology grounding (UniProt/MeSH/ChEMBL/PDB) and dual-use safety perimeter.
+dual_use: true
+smoke_eval_threshold: 0.95
+persona: persona.md
+skills: skills/
+tools:
+  - kind: native
+    name: helix_faithfulness_gate
+  - kind: native
+    name: helix_ontology_lookup
+  - kind: mcp
+    name: helix_dual_use_review
+    server: stdio:./tools/mcp_server.py
+memory:
+  seed: memory/seed.md
+evals:
+  golden: evals/golden.jsonl
+  rubric: evals/rubric.md
+verifier:
+  domain: biomed
+  command: python verifier/checker.py
+  budget_seconds: 600
